@@ -1,0 +1,123 @@
+body {
+  margin: 0px;
+  background-color: honeydew;
+}
+
+#game {
+  position: relative;
+  margin: 60px auto;
+  margin-bottom: 5px;
+  background-color: bisque;
+  /* height: 600px; */
+  height: 40vw;
+  /* width: 600px; */
+  width: 40vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.square {
+  box-sizing: border-box;
+  /* height: 180px; */
+  height: 12vw;
+  /* width: 180px; */
+  width: 12vw;
+  background-color: lightblue;
+  border: 2px dotted blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: calc(2vw / 5);
+  border-radius: 25%;
+}
+
+/* */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+#timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10%;
+  position: absolute;
+  left: calc(50vw - 50px);
+  top: 3px;
+  margin: 0;
+  background-color: cadetblue;
+  height: 50px;
+  min-width: 100px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 50vw;
+  position: relative;
+  left: 25vw;
+}
+
+button {
+  height: 5vh;
+  margin-right: calc(1vw / 2);
+  background-color: pink;
+  border-radius: 20%;
+}
+
+.player {
+  position: absolute;
+}
+
+#p1 {
+  position: absolute;
+  top: 5vh;
+  right: -75px;
+}
+
+#p2 {
+  position: absolute;
+  left: -75px;
+  top: 5vh;
+}
