@@ -6,11 +6,13 @@ function Player(name, symbol){
 const players = [
     {
         name : "player1",
-        symbol : "X"
+        symbol : "X",
+        wins: 0
     },
     {
         name : "player2",
-        symbol : "O"
+        symbol : "O",
+        wins: 0
     }
 ]
 const winConditions = [
@@ -89,6 +91,14 @@ function playerMove (index) {
         
         if (checkForWin(index)) {
             setTimeout(() => {alert(currentPlayer.name + " won"), checkForRecord()}, 300 )
+
+            if (currentPlayer == players[0])
+             {players[0].wins++}
+            else {players[1].wins++}
+
+            document.querySelector("#p1 span").innerText = `wins: ${players[0].wins}`
+            document.querySelector("#p2 span").innerText = `wins: ${players[1].wins}`
+
             setTimeout(() => resetGame(), 750)
             
             
