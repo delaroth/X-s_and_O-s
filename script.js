@@ -7,12 +7,16 @@ const players = [
     {
         name : "player1",
         symbol : "X",
-        wins: 0
+        wins: 0,
+        loses: 0,
+        ties: 0
     },
     {
         name : "player2",
         symbol : "O",
-        wins: 0
+        wins: 0,
+        loses: 0,
+        ties: 0
     }
 ]
 const winConditions = [
@@ -51,6 +55,14 @@ let draw = false
     
          console.log("new box added")
     }
+
+    document.querySelector("#p1 .wins").innerText = `wins: ${players[0].wins}`
+    document.querySelector("#p2 .wins").innerText = `wins: ${players[1].wins}`
+    document.querySelector("#p1 .loses").innerText = `loses: ${players[0].loses}`
+    document.querySelector("#p2 .loses").innerText = `loses: ${players[1].loses}`
+    document.querySelector("#p1 .ties").innerText = `ties: ${players[0].ties}`
+    document.querySelector("#p2 .ties").innerText = `ties: ${players[1].ties}`
+
 
 
 
@@ -93,11 +105,14 @@ function playerMove (index) {
             setTimeout(() => {alert(currentPlayer.name + " won"), checkForRecord()}, 300 )
 
             if (currentPlayer == players[0])
-             {players[0].wins++}
-            else {players[1].wins++}
-
-            document.querySelector("#p1 span").innerText = `wins: ${players[0].wins}`
-            document.querySelector("#p2 span").innerText = `wins: ${players[1].wins}`
+             {
+                 players[0].wins++
+                 players[1].loses++
+            }
+            else {
+                players[1].wins++
+                players[0].loses++
+            }
 
             setTimeout(() => resetGame(), 750)
             
@@ -105,6 +120,13 @@ function playerMove (index) {
         }
         else if(checkForDraw()) {
             setTimeout(() => {alert("Its a tie!")}, 300 )
+
+              players[0].ties++
+              players[1].ties++
+
+            document.querySelector("#p1 .ties").innerText = `ties: ${players[0].ties}`
+            document.querySelector("#p2 .ties").innerText = `ties: ${players[1].ties}`
+
             setTimeout(() => resetGame(), 750)
             
             
@@ -156,6 +178,13 @@ function resetGame () {
     for (let index = 0; index < 9; index++) {
         document.getElementsByClassName("square")[index].innerText = ""
     }
+    document.querySelector("#p1 span").innerText = `wins: ${players[0].wins}`
+    document.querySelector("#p2 span").innerText = `wins: ${players[1].wins}`
+    document.querySelector("#p1 .loses").innerText = `loses: ${players[0].loses}`
+    document.querySelector("#p2 .loses").innerText = `loses: ${players[1].loses}`
+    document.querySelector("#p1 .ties").innerText = `ties: ${players[0].ties}`
+    document.querySelector("#p2 .ties").innerText = `ties: ${players[1].ties}`
+
     
     clearInterval(intervalID)
     currentPlayer = players[0]
@@ -221,6 +250,10 @@ function reverseMove () {
  function save () {
     localStorage.gameSetUp = JSON.stringify(gameSetUp)
     localStorage.turnCounter = JSON.stringify(turnCounter)
+    localStorage.player1Score = JSON.stringify(players[0].wins) 
+    localStorage.player2Score = JSON.stringify(players[1].wins)  
+    localStorage.time = JSON.stringify(time)  
+    localStorage.currentPlayer = JSON.stringify(currentPlayer)
 
  }
 
@@ -237,10 +270,21 @@ function loadGame () {
     else {
         
        gameSetUp = JSON.parse(localStorage.gameSetUp)
+
+       turnCounter = JSON.parse(localStorage.turnCounter)
+ 
+       currentPlayer = JSON.parse(localStorage.currentPlayer)
+
+       players[0].wins = JSON.parse(localStorage.player1Score)
+       players[1].wins = JSON.parse(localStorage.player2Score)
+
        
-    
-       // turnCounter = localStorage.turnCounter
-       // turnCounter = JSON.parse(turnCounter)
+       document.querySelector("#p1 span").innerText = `wins: ${players[0].wins}`
+       document.querySelector("#p2 span").innerText = `wins: ${players[1].wins}`
+
+       time = JSON.parse(localStorage.time)
+       timeMoving()
+       
        
        for (let index = 0; index < 9; index++) {
            document.getElementById(`sqr${index}`).innerText = (gameSetUp[index] !== null)? gameSetUp[index] : ""
